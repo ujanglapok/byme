@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surat Hati untuk Kamu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* === RESET & VARIABLES === */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --rose: #FF6B8B;
+            --soft-pink: #FFE4EC;
+            --deep-pink: #FF4D6D;
+            --cream: #FFF0F3;
+            --text: #5A3D4A;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            background: var(--cream);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        /* === INTRO PAGE === */
+        .intro-page {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--rose) 0%, #FF8FA3 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 1s ease;
+            padding: 20px;
+        }
+        
+        .intro-content {
+            text-align: center;
+            color: white;
+            max-width: 600px;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .intro-heart {
+            font-size: 4em;
+            animation: heartbeat 1.5s infinite;
+            margin-bottom: 20px;
+        }
+        
+        .intro-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .intro-subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        .begin-btn {
+            background: white;
+            color: var(--rose);
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        
+        .begin-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+        }
+        
+        /* === LETTER CONTAINER === */
+        .letter-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            opacity: 0;
+            animation: fadeIn 1s 0.5s forwards;
+        }
+        
+        .envelope {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            box-shadow: 0 20px 60px rgba(255,107,139,0.15);
+            border: 2px solid var(--soft-pink);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .envelope::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--rose), var(--deep-pink));
+        }
+        
+        .seal {
+            position: absolute;
+            top: -25px; right: 40px;
+            width: 50px; height: 50px;
+            background: var(--rose);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5em;
+            box-shadow: 0 5px 15px rgba(255,107,139,0.3);
+            animation: sealPulse 3s infinite;
+        }
+        
+        /* === LETTER CONTENT === */
+        .letter-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 2px dashed var(--soft-pink);
+        }
+        
+        .recipient {
+            font-size: 2.8em;
+            color: var(--deep-pink);
+            margin-bottom: 10px;
+            font-family: 'Dancing Script', cursive;
+        }
+        
+        .date-place {
+            color: #888;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+        
+        .letter-body {
+            font-size: 1.15em;
+        }
+        
+        .paragraph {
+            margin-bottom: 35px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+            padding: 20px;
+            background: var(--cream);
+            border-radius: 15px;
+            border-left: 4px solid transparent;
+        }
+        
+        .paragraph.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .paragraph:nth-child(odd) { border-left-color: var(--rose); }
+        .paragraph:nth-child(even) { border-left-color: var(--deep-pink); }
+        
+        .paragraph:hover {
+            transform: translateX(10px);
+            background: white;
+            box-shadow: 0 5px 20px rgba(255,107,139,0.1);
+        }
+        
+        .highlight {
+            color: var(--deep-pink);
+            font-weight: bold;
+            background: var(--soft-pink);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        
+        /* === RESPONSE BUTTONS === */
+        .response-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 50px 0;
+            flex-wrap: wrap;
+        }
+        
+        .response-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-width: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .yes-btn {
+            background: var(--rose);
+            color: white;
+            box-shadow: 0 8px 25px rgba(255,107,139,0.3);
+        }
+        
+        .no-btn {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--soft-pink);
+        }
+        
+        .response-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255,107,139,0.2);
+        }
+        
+        /* === CLOSING === */
+        .closing {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 2px dashed var(--soft-pink);
+            opacity: 0;
+            animation: fadeIn 1s 2s forwards;
+        }
+        
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5em;
+            color: var(--rose);
+            margin: 20px 0;
+        }
+        
+        .ps-note {
+            font-style: italic;
+            color: #888;
+            margin-top: 20px;
+            font-size: 0.95em;
+        }
+        
+        /* === FLOATING HEARTS === */
+        .floating-heart {
+            position: fixed;
+            font-size: 24px;
+            color: var(--rose);
+            opacity: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        /* === MODAL === */
+        .response-modal {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s;
+        }
+        
+        .response-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            max-width: 500px;
+            text-align: center;
+            transform: scale(0.7);
+            transition: transform 0.5s;
+        }
+        
+        .response-modal.active .modal-content {
+            transform: scale(1);
+        }
+        
+        /* === MUSIC PLAYER === */
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 10px 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1000;
+            border: 1px solid var(--soft-pink);
+            animation: slideInRight 0.5s ease forwards;
+            backdrop-filter: blur(10px);
+        }
+        
+        .music-control-btn {
+            background: var(--rose);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+        
+        .music-control-btn:hover {
+            background: var(--deep-pink);
+            transform: scale(1.1);
+        }
+        
+        .music-control-btn.playing {
+            animation: pulse 2s infinite;
+        }
+        
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .volume-slider {
+            width: 100px;
+            height: 4px;
+            -webkit-appearance: none;
+            background: var(--soft-pink);
+            border-radius: 2px;
+        }
+        
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--rose);
+            cursor: pointer;
+            border: 2px solid white;
+        }
+        
+        /* === MODAL BUTTONS === */
+        .modal-confirm-btn {
+            background: var(--rose);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Georgia', serif;
+        }
+        
+        .modal-confirm-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255,107,139,0.3);
+        }
+        
+        .modal-ok-btn {
+            background: var(--soft-pink);
+            color: var(--text);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Georgia', serif;
+        }
+        
+        .modal-ok-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255,107,139,0.2);
+        }
+
+        /* === FEEDBACK FORM MODAL === */
+        .feedback-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s;
+            padding: 20px;
+        }
+
+        .feedback-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .feedback-content {
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(30px);
+            transition: transform 0.5s;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .feedback-modal.active .feedback-content {
+            transform: translateY(0);
+        }
+
+        .feedback-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .feedback-heart {
+            font-size: 3em;
+            animation: heartbeat 1.5s infinite;
+            margin-bottom: 15px;
+        }
+
+        .feedback-header h2 {
+            color: var(--deep-pink);
+            margin-bottom: 10px;
+            font-size: 1.8em;
+        }
+
+        .feedback-header p {
+            color: #888;
+            font-style: italic;
+        }
+
+        /* Feedback Options */
+        .feedback-options {
+            margin: 25px 0;
+        }
+
+        .feedback-option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 2px solid var(--soft-pink);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: var(--cream);
+        }
+
+        .feedback-option:hover {
+            transform: translateY(-3px);
+            border-color: var(--rose);
+            box-shadow: 0 8px 20px rgba(255,107,139,0.15);
+        }
+
+        .feedback-option.selected {
+            border-color: var(--deep-pink);
+            background: var(--soft-pink);
+            transform: translateY(-3px);
+        }
+
+        .option-icon {
+            font-size: 2em;
+            margin-right: 15px;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .option-text h3 {
+            color: var(--text);
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        .option-text p {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        /* Personal Message */
+        .personal-message {
+            margin: 25px 0;
+        }
+
+        .personal-message textarea {
+            width: 100%;
+            height: 120px;
+            padding: 15px;
+            border: 2px solid var(--soft-pink);
+            border-radius: 15px;
+            font-family: 'Georgia', serif;
+            font-size: 1em;
+            resize: none;
+            transition: all 0.3s;
+            background: var(--cream);
+            color: var(--text);
+        }
+
+        .personal-message textarea:focus {
+            outline: none;
+            border-color: var(--rose);
+            box-shadow: 0 0 15px rgba(255,107,139,0.2);
+        }
+
+        .personal-message textarea::placeholder {
+            color: #aaa;
+            font-style: italic;
+        }
+
+        .char-counter {
+            text-align: right;
+            font-size: 0.85em;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        /* Feedback Buttons */
+        .feedback-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .feedback-send-btn {
+            flex: 2;
+            background: var(--rose);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Georgia', serif;
+        }
+
+        .feedback-send-btn:hover {
+            background: var(--deep-pink);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255,107,139,0.3);
+        }
+
+        .feedback-send-btn.sending {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .feedback-cancel-btn {
+            flex: 1;
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--soft-pink);
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Georgia', serif;
+        }
+
+        .feedback-cancel-btn:hover {
+            border-color: var(--rose);
+            transform: translateY(-3px);
+        }
+
+        .feedback-note {
+            text-align: center;
+            font-size: 0.85em;
+            color: #888;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        /* Loading animation */
+        .loading-dots {
+            display: inline-block;
+        }
+
+        .loading-dots::after {
+            content: '...';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+        
+        /* === ANIMATIONS === */
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        @keyframes sealPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255,107,139,0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255,107,139,0); }
+            100% { box-shadow: 0 0 0 0 rgba(255,107,139,0); }
+        }
+        
+        @keyframes heartExplode {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+            50% { transform: translate(-50%, -50%) scale(2); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(4); opacity: 0; }
+        }
+
+        /* === RESPONSIVE DESIGN === */
+        @media (max-width: 768px) {
+            /* Fix buttons centering */
+            .response-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+                padding: 0 10px;
+                margin: 40px 0;
+            }
+            
+            .response-btn {
+                width: 100%;
+                max-width: 320px;
+                padding: 16px 25px;
+                font-size: 1.1em;
+                border-radius: 25px;
+                margin: 0;
+            }
+            
+            /* Fix button text alignment */
+            .response-btn span {
+                font-size: 1.2em;
+                margin-right: 10px;
+            }
+            
+            /* Fix music player untuk mobile */
+            .music-player {
+                bottom: 15px;
+                right: 15px;
+                padding: 8px 12px;
+                border-radius: 20px;
+                gap: 8px;
+                background: rgba(255, 255, 255, 0.98);
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            }
+            
+            /* Volume control sederhana untuk mobile */
+            .volume-control {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+            
+            .volume-slider {
+                width: 60px;
+                height: 4px;
+            }
+            
+            .volume-icon {
+                font-size: 0.8em;
+                min-width: 18px;
+            }
+            
+            /* Fix envelope padding */
+            .envelope {
+                padding: 40px 20px;
+                margin: 0;
+            }
+            
+            /* Fix recipient name untuk mobile */
+            .recipient {
+                font-size: 2.2em;
+                padding: 0 10px;
+                line-height: 1.3;
+                word-break: break-word;
+            }
+            
+            /* Fix paragraph text */
+            .paragraph {
+                padding: 15px;
+                font-size: 1.05em;
+                line-height: 1.7;
+                margin-bottom: 25px;
+            }
+            
+            /* Fix modal untuk mobile */
+            .modal-content {
+                padding: 30px 20px;
+                margin: 20px;
+                max-width: 90%;
+            }
+            
+            /* Fix intro untuk mobile */
+            .intro-title {
+                font-size: 2em;
+            }
+            
+            .intro-subtitle {
+                font-size: 1.1em;
+            }
+            
+            .begin-btn {
+                padding: 14px 35px;
+            }
+
+            /* Responsive Feedback */
+            .feedback-content {
+                padding: 25px 20px;
+                margin: 10px;
+            }
+            
+            .feedback-option {
+                padding: 12px;
+            }
+            
+            .option-icon {
+                font-size: 1.5em;
+                min-width: 40px;
+            }
+            
+            .option-text h3 {
+                font-size: 1em;
+            }
+            
+            .option-text p {
+                font-size: 0.85em;
+            }
+            
+            .feedback-buttons {
+                flex-direction: column;
+            }
+            
+            .personal-message textarea {
+                height: 100px;
+            }
+        }
+        
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .response-btn {
+                max-width: 280px;
+                padding: 14px 20px;
+                font-size: 1em;
+            }
+            
+            .recipient {
+                font-size: 1.8em;
+            }
+            
+            .music-player {
+                bottom: 10px;
+                right: 10px;
+                padding: 6px 10px;
+            }
+            
+            .volume-slider {
+                width: 50px;
+            }
+            
+            .music-control-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 1em;
+            }
+            
+            .letter-container {
+                padding: 20px 15px;
+            }
+            
+            .envelope {
+                padding: 30px 15px;
+            }
+            
+            .seal {
+                top: -20px;
+                right: 20px;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2em;
+            }
+            
+            .closing {
+                margin-top: 40px;
+                padding-top: 30px;
+            }
+            
+            .signature {
+                font-size: 2em;
+            }
+        }
+        
+        /* Landscape mode fixes */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .intro-content {
+                max-width: 90%;
+            }
+            
+            .music-player {
+                bottom: 10px;
+                right: 10px;
+            }
+            
+            .envelope {
+                padding: 30px 20px;
+            }
+            
+            .paragraph {
+                padding: 12px;
+                margin-bottom: 20px;
+            }
+        }
+        
+        /* Tablet fixes */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .letter-container {
+                max-width: 700px;
+                padding: 30px;
+            }
+            
+            .envelope {
+                padding: 50px 30px;
+            }
+            
+            .recipient {
+                font-size: 2.4em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Audio Element -->
+    <audio id="backgroundMusic" loop preload="auto">
+        <source src="pelengkap.mp3" type="audio/mpeg">
+        Browser tidak mendukung audio.
+    </audio>
+    
+    <!-- Music Player -->
+    <div class="music-player" id="musicPlayer" style="display: none;">
+        <button id="musicToggle" class="music-control-btn">
+            <span class="music-icon">🎵</span>
+        </button>
+        <div class="volume-control">
+            <span class="volume-icon">🔊</span>
+            <input type="range" id="volumeSlider" min="0" max="100" value="30" class="volume-slider">
+        </div>
+    </div>
+    
+    <!-- Intro Page -->
+    <div class="intro-page" id="introPage">
+        <div class="intro-content">
+            <div class="intro-heart">💌</div>
+            <h1 class="intro-title">Sebuah Surat dari Hatiku</h1>
+            <p class="intro-subtitle">Untuk seseorang yang sangat spesial...</p>
+            <p style="margin-bottom: 30px; font-size: 1.1em;">Ada sesuatu yang ingin kusampaikan dengan tulus</p>
+            <button class="begin-btn" id="beginBtn">Buka Surat Ini 💖</button>
+            <p style="margin-top: 30px; font-size: 0.9em; opacity: 0.7;">Dibuat dengan penuh perasaan</p>
+        </div>
+    </div>
+    
+    <!-- Letter Container -->
+    <div class="letter-container" id="letterContainer">
+        <div class="envelope">
+            <div class="seal">❤️</div>
+            
+            <div class="letter-header">
+                <h1 class="recipient" contenteditable="true" id="recipientName">Untuk Kamu yang Tersayang</h1>
+                <p class="date-place" id="datePlace">Hari ini, di mana pun kita berada</p>
+            </div>
+            
+            <div class="letter-body">
+                <div class="paragraph" id="para1">
+                    <p>Ini mungkin terdengar klise, tapi aku harus mengatakannya: <span class="highlight">aku menyukaimu</span>. Bukan sekadar suka biasa, tapi perasaan yang tumbuh perlahan, mengisi setiap ruang di hatiku tanpa kusadari.</p>
+                </div>
+                <div class="paragraph" id="para2">
+                    <p>Setiap kali kamu tersenyum, dunia seolah menjadi lebih cerah. Setiap kali kita berbicara, waktu terasa berlalu terlalu cepat. Kamu membuatku merasa... <span class="highlight">diperhatikan</span>, <span class="highlight">dipahami</span>, dan <span class="highlight">berharga</span>.</p>
+                </div>
+                <div class="paragraph" id="para3">
+                    <p>Aku tahu kita semua punya kekurangan. Tapi justru itulah yang membuatku semakin tertarik—melihat kamu apa adanya, dengan segala keunikan dan kejujuranmu. Kamu tidak perlu menjadi sempurna, karena versi kamu yang sekarang sudah <span class="highlight">cukup berarti</span> bagiku.</p>
+                </div>
+                <div class="paragraph" id="para4">
+                    <p>Mungkin kamu bertanya-tanya mengapa sekarang? Karena aku lelah menyimpan semua ini sendirian. Karena setiap hari melihatmu tanpa mengatakan yang sebenarnya terasa seperti <span class="highlight">menahan napas</span>. Dan aku ingin bernapas lega, ingin jujur tentang apa yang kurasakan.</p>
+                </div>
+                <div class="paragraph" id="para5">
+                    <p>Ini bukan tentang memaksakan sesuatu. Ini hanya tentang <span class="highlight">kejujuran</span>. Tentang memberanikan diri mengatakan, "Hei, kamu berarti bagiku lebih dari yang mungkin kamu sadari."</p>
+                </div>
+            </div>
+            
+            <div class="response-buttons">
+                <button class="response-btn yes-btn" id="yesBtn"><span>❤️</span> Aku Juga Merasa Sama</button>
+                <button class="response-btn no-btn" id="noBtn"><span>💭</span> Aku Perlu Waktu</button>
+            </div>
+            
+            <div class="closing">
+                <p>Apapun responsmu, terima kasih sudah mendengarkan. Terima kasih sudah menjadi bagian dari hidupku, walau mungkin hanya sesaat.</p>
+                <div class="signature">
+                    Dengan hati yang berdebar,<br>
+                    <span contenteditable="true" style="border-bottom: 2px dashed var(--rose); padding: 0 10px;">[Nama Pengirim]</span>
+                </div>
+                <p class="ps-note">PS: Kamu bisa mengedit namaku atau namamu di atas dengan mengkliknya</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Response Modal -->
+    <div class="response-modal" id="responseModal">
+        <div class="modal-content" id="modalContent"></div>
+    </div>
+    
+    <!-- Feedback Form Modal -->
+    <div class="feedback-modal" id="feedbackModal">
+        <div class="feedback-content">
+            <div class="feedback-header">
+                <div class="feedback-heart">💝</div>
+                <h2>Ceritakan Perasaanmu...</h2>
+                <p>Aku ingin mendengar langsung darimu ❤️</p>
+            </div>
+            
+            <div class="feedback-options">
+                <div class="feedback-option" data-value="suka">
+                    <div class="option-icon">😊</div>
+                    <div class="option-text">
+                        <h3>Aku Juga Suka Padamu</h3>
+                        <p>Perasaanku sama seperti yang kau rasakan</p>
+                    </div>
+                </div>
+                
+                <div class="feedback-option" data-value="ragu">
+                    <div class="option-icon">🤔</div>
+                    <div class="option-text">
+                        <h3>Aku Masih Ragu</h3>
+                        <p>Butuh waktu untuk memikirkan perasaanku</p>
+                    </div>
+                </div>
+                
+                <div class="feedback-option" data-value="teman">
+                    <div class="option-icon">🤗</div>
+                    <div class="option-text">
+                        <h3>Aku Hanya Bisa Sebagai Teman</h3>
+                        <p>Mari tetap berteman dengan baik</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="personal-message">
+                <textarea id="personalMessage" placeholder="Tulis pesan personal untukku di sini... ✨" 
+                          maxlength="500"></textarea>
+                <div class="char-counter"><span id="charCount">0</span>/500 karakter</div>
+            </div>
+            
+            <div class="feedback-buttons">
+                <button class="feedback-send-btn" id="sendFeedback">Kirim Jawabanku 💌</button>
+                <button class="feedback-cancel-btn" id="cancelFeedback">Nanti Saja</button>
+            </div>
+            
+            <p class="feedback-note">Jawabanmu akan langsung dikirim ke Telegram ku</p>
+        </div>
+    </div>
+    
+    <script>
+        // === TELEGRAM BOT CONFIGURATION ===
+        const TELEGRAM_CONFIG = {
+            BOT_TOKEN: '8437150175:AAFEOp1cDuUKq6unN0Z1vTj4Oe5WrebjjSo',
+            CHAT_ID: '1933585104',
+            TEST_MODE: false // Set true untuk testing lokal, false untuk production
+        };
+
+        // === VARIABLES ===
+        let observer = null;
+        let isMusicPlaying = false;
+        let currentVolume = 0.3;
+        let selectedFeedbackOption = null;
+        
+        // === DOM ELEMENTS ===
+        const introPage = document.getElementById('introPage');
+        const letterContainer = document.getElementById('letterContainer');
+        const beginBtn = document.getElementById('beginBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const responseModal = document.getElementById('responseModal');
+        const modalContent = document.getElementById('modalContent');
+        const recipientName = document.getElementById('recipientName');
+        const datePlace = document.getElementById('datePlace');
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const musicPlayer = document.getElementById('musicPlayer');
+        const musicToggle = document.getElementById('musicToggle');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const feedbackModal = document.getElementById('feedbackModal');
+        const sendFeedbackBtn = document.getElementById('sendFeedback');
+        const cancelFeedbackBtn = document.getElementById('cancelFeedback');
+        const personalMessage = document.getElementById('personalMessage');
+        const charCount = document.getElementById('charCount');
+
+        // === INITIALIZE ===
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set tanggal
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            datePlace.textContent = `${now.toLocaleDateString('id-ID', options)}, di dalam hatiku`;
+            
+            // Setup musik
+            backgroundMusic.volume = currentVolume;
+            volumeSlider.value = currentVolume * 100;
+            
+            // Event listeners
+            beginBtn.addEventListener('click', beginLetter);
+            yesBtn.addEventListener('click', () => showFeedbackForm());
+            noBtn.addEventListener('click', () => showResponse('no'));
+            musicToggle.addEventListener('click', toggleMusic);
+            volumeSlider.addEventListener('input', updateVolume);
+            
+            // Hati awal
+            createFloatingHearts(3);
+            
+            // No button effect
+            noBtn.addEventListener('mouseover', function() {
+                this.style.transform = 'translateX(20px)';
+                setTimeout(() => this.style.transform = 'translateX(0)', 300);
+            });
+            
+            // Setup feedback form
+            setupFeedbackForm();
+            
+            // Mobile volume icon update
+            updateVolumeIcon();
+        });
+
+        // === LETTER FUNCTIONS ===
+        function beginLetter() {
+            introPage.style.opacity = '0';
+            setTimeout(() => {
+                introPage.style.display = 'none';
+                letterContainer.scrollIntoView({ behavior: 'smooth' });
+                musicPlayer.style.display = 'flex';
+                createFloatingHearts(15);
+                startParagraphAnimations();
+                // Auto play musik
+                if (!isMusicPlaying) {
+                    setTimeout(() => playBackgroundMusic(), 500);
+                }
+            }, 1000);
+        }
+        
+        function startParagraphAnimations() {
+            const paragraphs = document.querySelectorAll('.paragraph');
+            observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        if (!entry.target.hasAttribute('data-heart-added')) {
+                            createFloatingHearts(2);
+                            entry.target.setAttribute('data-heart-added', 'true');
+                        }
+                    }
+                });
+            }, { threshold: 0.3 });
+            paragraphs.forEach(para => observer.observe(para));
+        }
+        
+        function createFloatingHearts(count) {
+            const heartTypes = ['❤️', '💖', '💗', '💓', '💞'];
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'floating-heart';
+                    heart.innerHTML = heartTypes[Math.floor(Math.random() * heartTypes.length)];
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.top = '100vh';
+                    heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                    heart.style.opacity = '0.8';
+                    document.body.appendChild(heart);
+                    
+                    const duration = Math.random() * 3000 + 2000;
+                    setTimeout(() => {
+                        heart.style.transition = `all ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)`;
+                        heart.style.opacity = '0';
+                        heart.style.transform = `translateY(-${window.innerHeight + 100}px) rotate(${Math.random() * 360}deg)`;
+                        setTimeout(() => heart.remove(), duration);
+                    }, Math.random() * 1000);
+                }, i * 100);
+            }
+        }
+
+        // === MUSIC FUNCTIONS ===
+        function toggleMusic() {
+            if (isMusicPlaying) {
+                pauseBackgroundMusic();
+            } else {
+                playBackgroundMusic();
+            }
+        }
+        
+        function playBackgroundMusic() {
+            backgroundMusic.play().then(() => {
+                isMusicPlaying = true;
+                updateMusicUI();
+                if (!musicToggle.hasAttribute('data-first-play')) {
+                    createFloatingHearts(8);
+                    musicToggle.setAttribute('data-first-play', 'true');
+                }
+            }).catch((error) => {
+                console.log("Playback error:", error);
+                isMusicPlaying = false;
+                updateMusicUI();
+                musicToggle.innerHTML = '<span class="music-icon">▶️</span>';
+            });
+        }
+        
+        function pauseBackgroundMusic() {
+            backgroundMusic.pause();
+            isMusicPlaying = false;
+            updateMusicUI();
+        }
+        
+        function updateVolume() {
+            currentVolume = volumeSlider.value / 100;
+            backgroundMusic.volume = currentVolume;
+            updateVolumeIcon();
+        }
+        
+        function updateVolumeIcon() {
+            const volumeIcon = document.querySelector('.volume-icon');
+            if (volumeIcon) {
+                volumeIcon.textContent = currentVolume === 0 ? '🔇' : 
+                                         currentVolume < 0.3 ? '🔈' : '🔊';
+            }
+        }
+        
+        function updateMusicUI() {
+            const playIcon = isMusicPlaying ? '⏸️' : '▶️';
+            musicToggle.innerHTML = `<span class="music-icon">${playIcon}</span>`;
+            if (isMusicPlaying) {
+                musicToggle.classList.add('playing');
+            } else {
+                musicToggle.classList.remove('playing');
+            }
+        }
+
+        // === FEEDBACK FORM FUNCTIONS ===
+        function setupFeedbackForm() {
+            // Setup feedback option selection
+            document.querySelectorAll('.feedback-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    // Hapus selected dari semua
+                    document.querySelectorAll('.feedback-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // Tambah selected ke yang diklik
+                    this.classList.add('selected');
+                    selectedFeedbackOption = this.getAttribute('data-value');
+                    
+                    // Efek visual
+                    createFloatingHearts(2);
+                });
+            });
+            
+            // Character counter untuk textarea
+            personalMessage.addEventListener('input', function() {
+                const count = this.value.length;
+                charCount.textContent = count;
+                
+                // Change color if approaching limit
+                if (count > 450) {
+                    charCount.style.color = 'var(--deep-pink)';
+                    charCount.style.fontWeight = 'bold';
+                } else {
+                    charCount.style.color = '#888';
+                    charCount.style.fontWeight = 'normal';
+                }
+            });
+            
+            // Send feedback button
+            sendFeedbackBtn.addEventListener('click', function() {
+                if (!selectedFeedbackOption) {
+                    alert('Pilih salah satu perasaanmu dulu ya 😊');
+                    return;
+                }
+                
+                // Prepare feedback data
+                const feedbackData = {
+                    option: selectedFeedbackOption,
+                    message: personalMessage.value.trim(),
+                    recipient: recipientName.textContent.replace('Untuk ', ''),
+                    timestamp: new Date().toISOString()
+                };
+                
+                // Kirim ke Telegram
+                sendToTelegram(feedbackData);
+            });
+            
+            // Cancel button
+            cancelFeedbackBtn.addEventListener('click', hideFeedbackForm);
+        }
+        
+        function showFeedbackForm() {
+            feedbackModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Reset form
+            selectedFeedbackOption = null;
+            personalMessage.value = '';
+            charCount.textContent = '0';
+            
+            // Hapus semua selected class
+            document.querySelectorAll('.feedback-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+        }
+        
+        function hideFeedbackForm() {
+            feedbackModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // === TELEGRAM BOT FUNCTIONS ===
+        async function sendToTelegram(feedbackData) {
+            try {
+                // Update button state
+                sendFeedbackBtn.innerHTML = 'Mengirim ke Telegram<span class="loading-dots"></span>';
+                sendFeedbackBtn.classList.add('sending');
+                sendFeedbackBtn.disabled = true;
+                
+                if (TELEGRAM_CONFIG.TEST_MODE) {
+                    // Simulasi untuk testing lokal
+                    console.log('📨 [TEST MODE] Feedback data:', feedbackData);
+                    console.log('📨 [TEST MODE] Would send to Telegram:', formatTelegramMessage(feedbackData, '127.0.0.1'));
+                    
+                    // Simulate success after delay
+                    setTimeout(() => {
+                        sendFeedbackBtn.innerHTML = '✅ [TEST] Terkirim!';
+                        saveFeedbackToLocalStorage(feedbackData);
+                        
+                        setTimeout(() => {
+                            showFeedbackConfirmation(feedbackData);
+                            // Reset button
+                            setTimeout(() => {
+                                sendFeedbackBtn.innerHTML = 'Kirim Jawabanku 💌';
+                                sendFeedbackBtn.classList.remove('sending');
+                                sendFeedbackBtn.disabled = false;
+                            }, 2000);
+                        }, 1000);
+                    }, 1500);
+                    return;
+                }
+                
+                // Get user IP (optional)
+                let userIP = 'Tidak terdeteksi';
+                try {
+                    const ipResponse = await fetch('https://api.ipify.org?format=json');
+                    const ipData = await ipResponse.json();
+                    userIP = ipData.ip;
+                } catch (ipError) {
+                    console.log('IP tidak terdeteksi:', ipError);
+                }
+                
+                // Format message untuk Telegram
+                const message = formatTelegramMessage(feedbackData, userIP);
+                
+                // Kirim ke Telegram API
+                const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_CONFIG.BOT_TOKEN}/sendMessage`;
+                
+                const response = await fetch(telegramUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CONFIG.CHAT_ID,
+                        text: message,
+                        parse_mode: 'HTML'
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.ok) {
+                    // Success
+                    sendFeedbackBtn.innerHTML = '✅ Terkirim!';
+                    createFloatingHearts(20);
+                    
+                    // Simpan ke localStorage backup
+                    saveFeedbackToLocalStorage(feedbackData);
+                    
+                    // Tampilkan confirmation setelah delay
+                    setTimeout(() => {
+                        showFeedbackConfirmation(feedbackData);
+                    }, 1000);
+                    
+                } else {
+                    throw new Error(result.description || 'Telegram API error');
+                }
+                
+            } catch (error) {
+                console.error('Error sending to Telegram:', error);
+                
+                // Fallback: Simpan ke localStorage
+                sendFeedbackBtn.innerHTML = '💾 Disimpan Lokal';
+                saveFeedbackToLocalStorage(feedbackData);
+                
+                // Tampilkan alert
+                setTimeout(() => {
+                    showFeedbackConfirmation(feedbackData);
+                    alert('Jawabanmu sudah disimpan. Aku akan cek nanti ya!');
+                }, 1000);
+                
+            } finally {
+                // Reset button setelah 3 detik (kecuali test mode)
+                if (!TELEGRAM_CONFIG.TEST_MODE) {
+                    setTimeout(() => {
+                        sendFeedbackBtn.innerHTML = 'Kirim Jawabanku 💌';
+                        sendFeedbackBtn.classList.remove('sending');
+                        sendFeedbackBtn.disabled = false;
+                    }, 3000);
+                }
+            }
+        }
+        
+        function formatTelegramMessage(feedbackData, userIP) {
+            const optionLabels = {
+                'suka': '😊 <b>Aku Juga Suka Padamu</b>',
+                'ragu': '🤔 <b>Aku Masih Ragu</b>',
+                'teman': '🤗 <b>Aku Hanya Bisa Sebagai Teman</b>'
+            };
+            
+            return `
+💌 <b>JAWABAN DARI SURAT CINTA!</b> 💌
+
+👤 <b>Kepada:</b> ${feedbackData.recipient}
+💖 <b>Perasaan:</b> ${optionLabels[feedbackData.option] || feedbackData.option}
+${feedbackData.message ? `📝 <b>Pesan:</b>\n${feedbackData.message}\n` : ''}
+🌐 <b>IP:</b> ${userIP}
+⏰ <b>Waktu:</b> ${new Date(feedbackData.timestamp).toLocaleString('id-ID')}
+
+<i>Ayo cek websitenya!</i> 🚀
+            `;
+        }
+        
+        function saveFeedbackToLocalStorage(feedbackData) {
+            try {
+                const allFeedback = JSON.parse(localStorage.getItem('suratCinta_feedback') || '[]');
+                feedbackData.id = Date.now();
+                allFeedback.push(feedbackData);
+                localStorage.setItem('suratCinta_feedback', JSON.stringify(allFeedback));
+            } catch (error) {
+                console.error('Error saving to localStorage:', error);
+            }
+        }
+
+        // === RESPONSE FUNCTIONS ===
+        function showResponse(type) {
+            const name = recipientName.textContent.replace('Untuk ', '');
+            let content = '';
+            
+            if (type === 'no') {
+                content = `
+                    <div style="font-size: 4em; margin-bottom: 20px;">🤗💝</div>
+                    <h2 style="color: var(--rose); margin-bottom: 20px;">Terima Kasih</h2>
+                    <p style="margin-bottom: 30px; font-size: 1.1em;">
+                        Terima kasih sudah jujur, ${name}.<br>
+                        Aku menghargai kejujuranmu, dan tidak apa-apa butuh waktu.
+                    </p>
+                    <p style="font-style: italic; margin-bottom: 30px; color: #666;">
+                        "Hal terbaik datang kepada mereka yang menunggu"
+                    </p>
+                    <button onclick="closeModal()" class="modal-ok-btn">
+                        Aku Mengerti 💭
+                    </button>
+                `;
+                
+                modalContent.innerHTML = content;
+                responseModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        function showFeedbackConfirmation(feedbackData) {
+            hideFeedbackForm();
+            
+            const optionLabels = {
+                'suka': '😊 Aku Juga Suka Padamu',
+                'ragu': '🤔 Aku Masih Ragu', 
+                'teman': '🤗 Aku Hanya Bisa Sebagai Teman'
+            };
+            
+            const content = `
+                <div style="font-size: 4em; margin-bottom: 20px;">🎉💌</div>
+                <h2 style="color: var(--rose); margin-bottom: 20px;">Terima Kasih Sudah Jujur!</h2>
+                
+                <div style="background: var(--cream); padding: 20px; border-radius: 15px; margin: 20px 0; text-align: left;">
+                    <h3 style="color: var(--deep-pink); margin-bottom: 10px;">Jawabanmu:</h3>
+                    <p style="margin-bottom: 15px; font-size: 1.1em;">
+                        <strong>${optionLabels[feedbackData.option]}</strong>
+                    </p>
+                    ${feedbackData.message ? `
+                    <h3 style="color: var(--deep-pink); margin-bottom: 10px;">Pesan Personalmu:</h3>
+                    <p style="font-style: italic; background: white; padding: 15px; border-radius: 10px;">
+                        "${feedbackData.message}"
+                    </p>
+                    ` : ''}
+                </div>
+                
+                <p style="margin-bottom: 25px; font-size: 1.1em;">
+                    Jawabanmu sudah sampai padaku! ❤️<br>
+                    Aku sangat menghargai kejujuran dan keberanianmu.
+                </p>
+                
+                <button onclick="closeModalAndCelebrate()" class="modal-confirm-btn">
+                    Terima Kasih Banyak! 🌸
+                </button>
+            `;
+            
+            modalContent.innerHTML = content;
+            responseModal.classList.add('active');
+            
+            // Celebration efek
+            createFloatingHearts(30);
+        }
+        
+        function closeModal() {
+            responseModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+        
+        function closeModalAndCelebrate() {
+            closeModal();
+            createFloatingHearts(50);
+            setTimeout(() => {
+                document.querySelector('.letter-header').scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'center' 
+                });
+            }, 500);
+            setTimeout(() => {
+                recipientName.textContent = "Untuk Kita Berdua 💕";
+                recipientName.style.color = 'var(--deep-pink)';
+                recipientName.style.fontSize = window.innerWidth <= 768 ? '2em' : '2.5em';
+                // Big heart animation
+                const bigHeart = document.createElement('div');
+                bigHeart.innerHTML = '💖';
+                bigHeart.style.cssText = `
+                    position: fixed;
+                    top: 50%; left: 50%;
+                    transform: translate(-50%, -50%) scale(0);
+                    font-size: 100px;
+                    z-index: 1000;
+                    animation: heartExplode 1.5s ease-out forwards;
+                    pointer-events: none;
+                `;
+                document.body.appendChild(bigHeart);
+                setTimeout(() => bigHeart.remove(), 1500);
+            }, 1000);
+        }
+
+        // Global functions
+        window.closeModal = closeModal;
+        window.closeModalAndCelebrate = closeModalAndCelebrate;
+        window.showFeedbackForm = showFeedbackForm;
+        window.hideFeedbackForm = hideFeedbackForm;
+    </script>
+</body>
+</html>
