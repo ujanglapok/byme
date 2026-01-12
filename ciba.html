@@ -1362,7 +1362,7 @@ setTimeout(() => {
                 console.error('Error sending to Telegram:', error);
                 
                 // Fallback: Simpan ke localStorage
-                sendFeedbackBtn.innerHTML = '💾 Disimpan Lokal';
+                sendFeedbackBtn.innerHTML = '💾 Sedang Mengirim...';
                 saveFeedbackToLocalStorage(feedbackData);
                 
                 // Tampilkan alert
@@ -1917,4 +1917,5 @@ beginLetter = function() {
     </script>
 </body>
 </html>
+
 
