@@ -1284,7 +1284,7 @@ setTimeout(() => {
         async function sendToTelegram(feedbackData) {
             try {
                 // Update button state
-                sendFeedbackBtn.innerHTML = 'Mengirim ke Telegram<span class="loading-dots"></span>';
+                sendFeedbackBtn.innerHTML = 'Sedang Mengirim...<span class="loading-dots"></span>';
                 sendFeedbackBtn.classList.add('sending');
                 sendFeedbackBtn.disabled = true;
                 
@@ -1917,5 +1917,6 @@ beginLetter = function() {
     </script>
 </body>
 </html>
+
 
 
