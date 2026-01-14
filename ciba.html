@@ -1439,10 +1439,10 @@
     <div class="intro-page" id="introPage">
         <div class="intro-content">
             <div class="intro-heart">💌</div>
-            <h1 class="intro-title">Sebuah surat dariku</h1>
-            <p class="intro-subtitle">Untuk seseorang yang menerima surat ini</p>
-            <p style="margin-bottom: 30px; font-size: 1.1em;">Ada sesuatu yang ingin kusampaikan kepadamu</p>
-            <button class="begin-btn" id="beginBtn">Buka surat ini yaa</button>
+            <h1 class="intro-title">Sebuah Surat dari Hatiku</h1>
+            <p class="intro-subtitle">Untuk seseorang yang sangat spesial...</p>
+            <p style="margin-bottom: 30px; font-size: 1.1em;">Ada sesuatu yang ingin kusampaikan dengan tulus</p>
+            <button class="begin-btn" id="beginBtn">Buka Surat Ini 💖</button>
             <p style="margin-top: 30px; font-size: 0.9em; opacity: 0.7;">Dibuat dengan penuh perasaan</p>
         </div>
     </div>
@@ -1453,7 +1453,7 @@
             <div class="seal">❤️</div>
             
             <div class="letter-header">
-                <h1 class="recipient" id="recipientName">Untukmu yang membaca ini</h1>
+                <h1 class="recipient" id="recipientName">Untukmu ?????</h1>
                 <p class="date-place" id="datePlace">Hari ini, di mana pun kita berada</p>
             </div>
             
@@ -1490,7 +1490,7 @@
                     </span>
                 </div>
                 <h1 class="recipient" id="recipientName" style="color: var(--deep-pink); font-weight: bold; font-family: Arial, Helvetica, sans-serif;">Untukmu
-                    ????</h1>
+                    Syahar Banu</h1>
             </div>
         </div>
     </div>
@@ -1780,7 +1780,7 @@
                 const feedbackData = {
                     option: selectedFeedbackOption,
                     message: personalMessage.value.trim(),
-                    recipient: "Musa",
+                    recipient:  "Musa",
                     timestamp: new Date().toISOString()
                 };
                 
@@ -1918,7 +1918,8 @@
         function formatTelegramMessage(feedbackData, userIP) {
             const optionLabels = {
                 'suka': '😊 <b>Aku suka membacanya</b>',
-                'ragu': '🤔 <b>Aku Masih Ragu</b>'
+                'ragu': '🤔 <b>Aku Masih Ragu</b>',
+                'perlu_waktu': '⏳ <b>Aku perlu waktu</b>' 
             };
             
             return `
@@ -1947,30 +1948,78 @@ ${feedbackData.message ? `📝 <b>Pesan:</b>\n${feedbackData.message}\n` : ''}
 
         // === RESPONSE FUNCTIONS ===
         function showResponse(type) {
-            const name = recipientName.textContent.replace('Untuk ', '');
-            let content = '';
+    const name = recipientName.textContent.replace('Untuk ', '');
+    let content = '';
+    
+    if (type === 'no') {
+        content = `
+            <div style="font-size: 4em; margin-bottom: 20px;">🤗💝</div>
+            <h2 style="color: var(--rose); margin-bottom: 20px;">Terima Kasih</h2>
+            <p style="margin-bottom: 30px; font-size: 1.1em;">
+                Terima kasih sudah jujur, ${name}.<br>
+                Aku menghargai kejujuranmu, dan tidak apa-apa butuh waktu.
+            </p>
+            <p style="font-style: italic; margin-bottom: 30px; color: #666;">
+                "Hal terbaik datang kepada mereka yang menunggu"
+            </p>
+            <button onclick="closeModal()" class="modal-ok-btn">
+                Aku Mengerti 💭
+            </button>
+        `;
+        
+        modalContent.innerHTML = content;
+        responseModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        // ===== TAMBAHKAN INI =====
+        // KIRIM KE TELEGRAM SETELAH MODAL DITAMPILKAN
+        setTimeout(() => {
+            const feedbackData = {
+                option: 'perlu_waktu',
+                message: 'User memilih "Aku Perlu Waktu"',
+                recipient: name,
+                timestamp: new Date().toISOString()
+            };
             
-            if (type === 'no') {
-                content = `
-                    <div style="font-size: 4em; margin-bottom: 20px;">🤗💝</div>
-                    <h2 style="color: var(--rose); margin-bottom: 20px;">Terima Kasih</h2>
-                    <p style="margin-bottom: 30px; font-size: 1.1em;">
-                        Terima kasih sudah jujur, ${name}.<br>
-                        Aku menghargai kejujuranmu, dan tidak apa-apa butuh waktu.
-                    </p>
-                    <p style="font-style: italic; margin-bottom: 30px; color: #666;">
-                        "Hal terbaik datang kepada mereka yang menunggu"
-                    </p>
-                    <button onclick="closeModal()" class="modal-ok-btn">
-                        Aku Mengerti 💭
-                    </button>
-                `;
-                
-                modalContent.innerHTML = content;
-                responseModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-        }
+            // Kirim ke Telegram
+            sendToTelegram(feedbackData);
+            
+            // Notifikasi kecil bahwa sudah terkirim
+            showSentNotification();
+        }, 500);
+        // ========================
+    }
+}
+
+// Fungsi notifikasi kecil
+function showSentNotification() {
+    const notification = document.createElement('div');
+    notification.innerHTML = '💭 Jawabanmu sudah terkirim!';
+    notification.style.cssText = `
+        position: fixed; bottom: 100px; left: 50%;
+        transform: translateX(-50%); background: var(--rose);
+        color: white; padding: 12px 25px; border-radius: 25px;
+        z-index: 10000; box-shadow: 0 5px 20px rgba(255,107,139,0.3);
+        animation: fadeInUp 0.5s ease;
+        font-family: 'Georgia', serif;
+        font-size: 0.95em;
+        border: 2px solid white;
+    `;
+    document.body.appendChild(notification);
+    
+    // Auto hilang setelah 3 detik
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateX(-50%) translateY(-10px)';
+        setTimeout(() => notification.remove(), 500);
+    }, 3000);
+}
+
+// Fungsi untuk menutup modal
+window.closeModal = function() {
+    responseModal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
         
         function showFeedbackConfirmation(feedbackData) {
             hideFeedbackForm();
@@ -2264,7 +2313,7 @@ ${feedbackData.message ? `📝 <b>Pesan:</b>\n${feedbackData.message}\n` : ''}
                         <button class="guide-close" onclick="closeGuide()">✕</button>
                     </div>
                     <div class="guide-body">
-                        <p>Kamu bisa pilih lagu yang udah aku siapin nih. <span class="highlight-emoji">🎶</span></p>
+                        <p>Kamu bisa pilih lagu yang udah ku siapin nih. <span class="highlight-emoji">🎶</span></p>
                         <div class="guide-animation">
                             <div class="arrow">👇</div>
                             <div class="music-btn-demo">🎶</div>
@@ -2389,9 +2438,4 @@ ${feedbackData.message ? `📝 <b>Pesan:</b>\n${feedbackData.message}\n` : ''}
     </script>
 </body>
 </html>
-
-
-
-
-
 
