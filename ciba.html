@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sebuah Surat Untukmu</title>
+    <title>Sebuah surat untukmu</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <!-- Tambahkan di <head> -->
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
@@ -1439,11 +1439,11 @@
     <div class="intro-page" id="introPage">
         <div class="intro-content">
             <div class="intro-heart">💌</div>
-            <h1 class="intro-title">Sebuah Surat dari Hatiku</h1>
+            <h1 class="intro-title">Sebuah Surat dariku untukmu</h1>
             <p class="intro-subtitle">Untuk seseorang yang sangat spesial...</p>
-            <p style="margin-bottom: 30px; font-size: 1.1em;">Ada sesuatu yang ingin kusampaikan dengan tulus</p>
-            <button class="begin-btn" id="beginBtn">Buka Surat Ini 💖</button>
-            <p style="margin-top: 30px; font-size: 0.9em; opacity: 0.7;">Dibuat dengan penuh perasaan</p>
+            <p style="margin-bottom: 30px; font-size: 1.1em;">Ada sesuatu yang ingin kusampaikan kepadamu</p>
+            <button class="begin-btn" id="beginBtn">Silahkan dibuka surat ini</button>
+            <p style="margin-top: 30px; font-size: 0.9em; opacity: 0.7;">Dibuat dengan penuh ketelitian</p>
         </div>
     </div>
     
@@ -1453,8 +1453,8 @@
             <div class="seal">❤️</div>
             
             <div class="letter-header">
-                <h1 class="recipient" id="recipientName">Untukmu ?????</h1>
-                <p class="date-place" id="datePlace">Hari ini, di mana pun kita berada</p>
+                <h1 class="recipient" id="recipientName">Untukmu Banun</h1>
+                <p class="date-place" id="datePlace">Hari ini, </p>
             </div>
             
             <div class="letter-body">
@@ -1486,11 +1486,11 @@
                     Dengan hati yang berdebar,<br>
                     <span style="border-bottom: 2px dashed var(--rose); padding: 0 10px; color: var(--deep-pink); 
                     font-weight: bold; font-family: Arial, sans-serif; user-select: none; -webkit-user-select: none;">
-                        ❤️ Someone who liked you
+                        Ahmad Abdullah Maula Ridho Alkaff
                     </span>
                 </div>
                 <h1 class="recipient" id="recipientName" style="color: var(--deep-pink); font-weight: bold; font-family: Arial, Helvetica, sans-serif;">Untukmu
-                    ?????</h1>
+                    Syahar Banu</h1>
             </div>
         </div>
     </div>
@@ -1513,8 +1513,8 @@
                 <div class="feedback-option" data-value="suka">
                     <div class="option-icon">😊</div>
                     <div class="option-text">
-                        <h3>Aku suka membacanya</h3>
-                        <p>Apakah kamu suka dengan ini?</p>
+                        <h3>Apakah kamu suka dengan ini?</h3>
+                        <p>Iyaa, Aku suka membacanya.</p>
                     </div>
                 </div>
                 
@@ -1581,7 +1581,7 @@
             // Set tanggal
             const now = new Date();
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            datePlace.textContent = `${now.toLocaleDateString('id-ID', options)}, di dalam hatiku`;
+            datePlace.textContent = `${now.toLocaleDateString('id-ID', options)}, di mana pun kamu berada`;
             
             // Setup musik
             backgroundMusic.volume = currentVolume;
@@ -1948,7 +1948,7 @@ ${feedbackData.message ? `📝 <b>Pesan:</b>\n${feedbackData.message}\n` : ''}
 
         // === RESPONSE FUNCTIONS ===
         function showResponse(type) {
-    const name = recipientName.textContent.replace('Untuk ', '');
+    const name = "Banun";
     let content = '';
     
     if (type === 'no') {
@@ -1956,7 +1956,7 @@ ${feedbackData.message ? `📝 <b>Pesan:</b>\n${feedbackData.message}\n` : ''}
             <div style="font-size: 4em; margin-bottom: 20px;">🤗💝</div>
             <h2 style="color: var(--rose); margin-bottom: 20px;">Terima Kasih</h2>
             <p style="margin-bottom: 30px; font-size: 1.1em;">
-                Terima kasih sudah jujur, ${name}.<br>
+                Terima kasih sudah jujur ya, ${name}.<br>
                 Aku menghargai kejujuranmu, dan tidak apa-apa butuh waktu.
             </p>
             <p style="font-style: italic; margin-bottom: 30px; color: #666;">
@@ -2085,9 +2085,10 @@ window.closeModal = function() {
                 });
             }, 500);
             setTimeout(() => {
-                recipientName.textContent = "Untuk ????";
+                recipientName.textContent = "Untukmu Banun";
                 recipientName.style.color = 'var(--deep-pink)';
-                recipientName.style.fontSize = window.innerWidth <= 768 ? '2em' : '2.5em';
+                recipientName.style.fontSize = '';
+                recipientName.style.fontFamily = '';
                 // Big heart animation
                 const bigHeart = document.createElement('div');
                 bigHeart.innerHTML = '💖';
@@ -2450,7 +2451,5 @@ window.closeModal = function() {
     </script>
 </body>
 </html>
-
-
 
 
